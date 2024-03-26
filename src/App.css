@@ -446,6 +446,23 @@ h6 {
   cursor: pointer;
   font-weight: 600;
 }
+/* .disabled-delete {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  background-color: light-dark(#efefef4d, #1301014d);
+  border-color: light-dark(#7676764d, #c3c3c34d);
+  color: light-dark(#1010104d, #ffffff4d);
+  
+  border-radius: 0.6rem;
+  padding: 14px;
+  
+  font-size: 0.7rem;
+  text-align: center;
+  transition: var(--mainTransition);
+  cursor: default;
+  font-weight: 600;
+} */
 .hot:hover {
   background-color: #806234b9;
 }
