@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const StyledCover = styled.header`
-  min-height: 81vh;
+const StyledCover2 = styled.header`
+  min-height: 60vh;
   background: url("https://midnight-aback-eater.glitch.me${(props) =>
       props.image}")
     center/cover no-repeat;
@@ -9,4 +9,4 @@ const StyledCover = styled.header`
   align-items: center;
   justify-content: center;
 `;
-export default StyledCover;
+export default StyledCover2;
