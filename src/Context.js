@@ -22,6 +22,7 @@ class HotelProvider extends React.Component {
       addImages: [],
       serviceRate: 0,
       serviceName: "",
+      baseURL: "http://localhost:3000",
       serviceDescription: "",
       reviewRate: 0,
       newReview: "",
@@ -52,9 +53,12 @@ class HotelProvider extends React.Component {
     this.onAddReview = this.onAddReview.bind(this);
     this.deleteService = this.deleteService.bind(this);
     this.addReservation = this.addReservation.bind(this);
+    this.baseURL = "https://stupendous-tranquil-buckthornpepperberry.glitch.me";
+    // this.baseURL = "http://localhost:3000";
   }
+
   getHotels = () => {
-    fetch("https://midnight-aback-eater.glitch.me/api/hotels")
+    fetch(`${this.baseURL}/api/hotels`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -78,7 +82,7 @@ class HotelProvider extends React.Component {
       );
   };
   getReservations = () => {
-    fetch("https://midnight-aback-eater.glitch.me/api/booking", {
+    fetch(`${this.baseURL}/api/booking`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -148,7 +152,7 @@ class HotelProvider extends React.Component {
       loginPending: true,
     });
     // creates entity
-    fetch("https://midnight-aback-eater.glitch.me/api/signin", {
+    fetch(`${this.baseURL}/api/signin`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -194,7 +198,7 @@ class HotelProvider extends React.Component {
       signUpPending: true,
     });
     // creates entity
-    fetch("https://midnight-aback-eater.glitch.me/api/signup", {
+    fetch(`${this.baseURL}/api/signup`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -256,7 +260,7 @@ class HotelProvider extends React.Component {
     });
     console.log(data.getAll);
     // creates entity
-    fetch("https://midnight-aback-eater.glitch.me/api/hotels", {
+    fetch(`${this.baseURL}/api/hotels`, {
       method: "POST",
       headers: {
         accessToken: localStorage.getItem("accessToken"),
@@ -286,7 +290,7 @@ class HotelProvider extends React.Component {
       AddServicePending: true,
     });
     // creates entity
-    fetch("https://midnight-aback-eater.glitch.me/api/services", {
+    fetch(`${this.baseURL}/api/services`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -322,7 +326,7 @@ class HotelProvider extends React.Component {
     });
 
     // creates entity
-    fetch("https://midnight-aback-eater.glitch.me/api/rates", {
+    fetch(`${this.baseURL}/api/rates`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -357,7 +361,7 @@ class HotelProvider extends React.Component {
       reservationPending: true,
     });
     // creates entity
-    fetch("https://midnight-aback-eater.glitch.me/api/booking", {
+    fetch(`${this.baseURL}/api/booking`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -445,7 +449,7 @@ class HotelProvider extends React.Component {
     e.preventDefault();
     console.log(typeof id);
     // deletes entities
-    fetch(`https://midnight-aback-eater.glitch.me/api/hotels/${id}`, {
+    fetch(`${this.baseURL}/api/hotels/${id}`, {
       method: "DELETE",
       headers: {
         // "content-type": "application/json",
@@ -471,7 +475,7 @@ class HotelProvider extends React.Component {
     console.log(id);
     console.log(localStorage.getItem("accessToken"));
     //https://midnight-aback-eater.glitch.me/api/
-    fetch(`https://midnight-aback-eater.glitch.me/api/services/${id}`, {
+    fetch(`${this.baseURL}/api/services/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

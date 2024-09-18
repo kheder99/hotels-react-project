@@ -62,7 +62,7 @@ export default function SingleHotel(props) {
               </form>
             ) : null}{" "}
           </div>
-          <div className="service">
+          <div className="service2">
             <h4>{service.name}</h4>
             <ReactStars
               value={service.rate}
@@ -204,12 +204,13 @@ export default function SingleHotel(props) {
           localStorage.getItem("accessToken") === null ? (
             <StyledCover image={mainImg} id="singleHotelCover">
               <Banner title={name}>
-                <Link to="/hotels">
+                <Link to="#">
                   <button
                     className="btn-primary-disabled "
                     onClick={(e) => {
                       addReservation(e, id);
                     }}
+                    disabled
                   >
                     reservation
                   </button>
@@ -246,12 +247,13 @@ export default function SingleHotel(props) {
         ) : localStorage.getItem("accessToken") === null ? (
           <StyledCover2 image={mainImg} id="singleHotelCover">
             <Banner title={name}>
-              <Link to="/hotels">
+              <Link to="#">
                 <button
                   className="btn-primary-disabled"
                   onClick={(e) => {
                     addReservation(e, id);
                   }}
+                  disabled
                 >
                   reservation
                 </button>

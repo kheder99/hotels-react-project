@@ -59,7 +59,8 @@ export default function Login() {
               <RiLockPasswordLine />
             </span>
           </div>
-          <div className="errorMessage">{loginError}</div>
+          {loginError ? <div className="errorMessage">{loginError}</div> : null}
+
           {loginPending !== true ? (
             <button type="submit">Sign In</button>
           ) : (

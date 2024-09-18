@@ -121,7 +121,10 @@ export default function SignUp() {
               <FaMobileAlt />
             </span>
           </div>
-          <div className="errorMessage">{signUpError}</div>
+
+          {signUpError ? (
+            <div className="errorMessage">{signUpError}</div>
+          ) : null}
 
           {/* <button type="submit">Create</button> */}
           {signUpPending !== true ? (
