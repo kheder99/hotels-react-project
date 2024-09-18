@@ -544,6 +544,12 @@ h6 {
   grid-row-gap: 2rem;
   grid-column-gap: 50px;
 }
+@media screen and (max-width: 500px) {
+  .single-hotel-images {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .single-hotel-images img {
   width: 100%;
   display: block;
