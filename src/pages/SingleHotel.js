@@ -292,7 +292,10 @@ export default function SingleHotel(props) {
             {sectionImgs.map((image, index) => {
               return (
                 <img
-                  src={"https://midnight-aback-eater.glitch.me" + image}
+                  src={
+                    "https://hotel-react-project-backend-production.up.railway.app" +
+                    image
+                  }
                   key={index}
                   alt={name}
                 />

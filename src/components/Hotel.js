@@ -23,7 +23,10 @@ export default function Hotel(props) {
     <article className="hotel">
       <div className="img-container">
         <img
-          src={"https://midnight-aback-eater.glitch.me/" + images[0]}
+          src={
+            "https://hotel-react-project-backend-production.up.railway.app/" +
+            images[0]
+          }
           alt="Error"
         />
 

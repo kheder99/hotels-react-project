@@ -53,7 +53,9 @@ class HotelProvider extends React.Component {
     this.onAddReview = this.onAddReview.bind(this);
     this.deleteService = this.deleteService.bind(this);
     this.addReservation = this.addReservation.bind(this);
-    this.baseURL = "https://stupendous-tranquil-buckthornpepperberry.glitch.me";
+    // this.baseURL = "https://stupendous-tranquil-buckthornpepperberry.glitch.me";
+    this.baseURL =
+      "https://hotel-react-project-backend-production.up.railway.app";
     // this.baseURL = "http://localhost:3000";
   }
 
