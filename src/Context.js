@@ -65,7 +65,6 @@ class HotelProvider extends React.Component {
       .then(
         (result) => {
           console.log(result);
-          let accessToken = localStorage.getItem("accessToken");
 
           let hotels = this.formatData(result);
           let featuredHotels = hotels.filter((hotel) => hotel.rate === 5);
@@ -85,34 +84,65 @@ class HotelProvider extends React.Component {
         },
       );
   };
-  getReservations = () => {
-    fetch(`${this.baseURL}/api/booking`, {
+  // getReservations = () => {
+  //   fetch(`${this.baseURL}/api/booking`, {
+  //     method: "GET",
+  //     headers: {
+  //       "content-type": "application/json",
+  //       accept: "application/json",
+  //       accessToken: localStorage.getItem("accessToken"),
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then(
+  //       (result) => {
+  //         console.log(result);
+  //         let booking = this.formatBooking(result);
+  //         this.setState({
+  //           booking: booking,
+  //         });
+  //       },
+  //       (error) => {
+  //         this.setState({
+  //           error,
+  //         });
+  //       },
+  //     );
+  // };
+  getReservations = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      this.setState({ booking: [] });
+      return;
+    }
+
+    const res = await fetch(`${this.baseURL}/api/booking`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
         accept: "application/json",
-        accessToken: localStorage.getItem("accessToken"),
+        accessToken: token,
       },
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          let booking = this.formatBooking(result);
-          this.setState({
-            booking: booking,
-          });
-        },
-        (error) => {
-          this.setState({
-            error,
-          });
-        },
-      );
+    });
+
+    if (res.status === 401 || res.status === 403) {
+      this.setState({ booking: [] });
+      return;
+    }
+
+    if (!res.ok) throw new Error(`Booking request failed: ${res.status}`);
+
+    const result = await res.json();
+    this.setState({
+      booking: Array.isArray(result) ? this.formatBooking(result) : [],
+    });
   };
+
   componentDidMount() {
     this.getHotels();
-    this.getReservations();
+    if (localStorage.getItem("accessToken")) this.getReservations();
+
+    // this.getReservations();
   }
 
   formatData(items) {
@@ -279,7 +309,7 @@ class HotelProvider extends React.Component {
         window.location.href = "/";
         console.log(await response.json());
         if (response.status === 200) {
-          const data = await response.json();
+          await response.json();
         }
       })
       .catch((err) => {
@@ -315,7 +345,7 @@ class HotelProvider extends React.Component {
         window.location.href = "/hotels";
         console.log(await response.json());
         if (response.status === 200) {
-          const data = await response.json();
+          await response.json();
         }
       })
       .catch((err) => {
@@ -351,7 +381,7 @@ class HotelProvider extends React.Component {
         // window.location.href = "/hotels";
         console.log(await response.json());
         if (response.status === 200) {
-          const data = await response.json();
+          await response.json();
         }
       })
       .catch((err) => {
@@ -383,7 +413,7 @@ class HotelProvider extends React.Component {
         window.location.href = "/reservation";
         console.log(await response.json());
         if (response.status === 200) {
-          const data = await response.json();
+          await response.json();
         }
         // window.location.href = "/reservation";
       })
@@ -409,7 +439,6 @@ class HotelProvider extends React.Component {
   handleSignUpChange = (event) => {
     const target = event.target;
     const value = target.value;
-    const type = target.type;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -418,7 +447,6 @@ class HotelProvider extends React.Component {
   handleAddHotelChange = (event) => {
     const target = event.target;
     const value = target.value;
-    const type = target.type;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -434,7 +462,6 @@ class HotelProvider extends React.Component {
   handleAddService = (event) => {
     const target = event.target;
     const value = target.value;
-    const type = target.type;
     const name = target.name;
     this.setState({
       [name]: value,
@@ -522,53 +549,72 @@ class HotelProvider extends React.Component {
       this.filterHotels,
     );
   };
+  // filterHotels = () => {
+  //   let { hotels, searchedHotel, rating } = this.state;
+  //   // searchedHotel = searchedHotel.replaceAll(" ", "");
+  //   // console.log(searchedHotel.toLowerCase());
+  //   let tempHotels;
+  //   if (searchedHotel.length > 0) {
+  //     tempHotels = hotels.map((hotel) => {
+  //       // console.log(hotel.name.toLowerCase().replace(" ", ""));
+  //       if (
+  //         hotel.name
+  //           .toLowerCase()
+  //           .replaceAll(" ", "")
+  //           .search(searchedHotel.toLowerCase().replaceAll(" ", "")) === -1
+  //       ) {
+  //         return;
+  //       } else return hotel;
+  //     });
+  //   }
+  //   if (searchedHotel.length === 0) {
+  //     tempHotels = hotels.map((hotel) => {
+  //       return hotel;
+  //     });
+  //   }
+  //   if (rating !== 0) {
+  //     if (tempHotels) {
+  //       tempHotels = tempHotels.map((hotel) => {
+  //         if (hotel) {
+  //           if (hotel.rate !== rating) {
+  //             return;
+  //           } else return hotel;
+  //         }
+  //       });
+  //     } else {
+  //       tempHotels = hotels.map((hotel) => {
+  //         if (hotel) {
+  //           if (hotel.rate !== rating) {
+  //             return;
+  //           } else return hotel;
+  //         }
+  //       });
+  //     }
+  //   }
+  //   this.setState({
+  //     sortedHotels: tempHotels,
+  //   });
+  // };
   filterHotels = () => {
-    let { hotels, searchedHotel, rating } = this.state;
-    // searchedHotel = searchedHotel.replaceAll(" ", "");
-    // console.log(searchedHotel.toLowerCase());
-    let tempHotels;
+    const { hotels, searchedHotel, rating } = this.state;
+
+    let tempHotels = hotels;
+
     if (searchedHotel.length > 0) {
-      tempHotels = hotels.map((hotel) => {
-        // console.log(hotel.name.toLowerCase().replace(" ", ""));
-        if (
-          hotel.name
-            .toLowerCase()
-            .replaceAll(" ", "")
-            .search(searchedHotel.toLowerCase().replaceAll(" ", "")) === -1
-        ) {
-          return;
-        } else return hotel;
-      });
+      const normalizedSearch = searchedHotel.toLowerCase().replaceAll(" ", "");
+      tempHotels = tempHotels.filter((hotel) =>
+        hotel.name.toLowerCase().replaceAll(" ", "").includes(normalizedSearch),
+      );
     }
-    if (searchedHotel.length === 0) {
-      tempHotels = hotels.map((hotel) => {
-        return hotel;
-      });
-    }
+
     if (rating !== 0) {
-      if (tempHotels) {
-        tempHotels = tempHotels.map((hotel) => {
-          if (hotel) {
-            if (hotel.rate !== rating) {
-              return;
-            } else return hotel;
-          }
-        });
-      } else {
-        tempHotels = hotels.map((hotel) => {
-          if (hotel) {
-            if (hotel.rate !== rating) {
-              return;
-            } else return hotel;
-          }
-        });
-      }
+      tempHotels = tempHotels.filter((hotel) => hotel && hotel.rate === rating);
     }
+
     this.setState({
       sortedHotels: tempHotels,
     });
   };
-
   ratingChanged = (newRating) => {
     // let {rating} = this.state;
     console.log(newRating);

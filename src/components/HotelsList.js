@@ -13,12 +13,17 @@ export default function HotelsList(props) {
     ) : null;
   console.log(props.hotels);
   let hotels = [];
+  // if (props.hotels !== undefined) {
+  //   hotels = props.hotels.map((hotel) => {
+  //     if (hotel) {
+  //       return <Hotel key={hotel.id} hotel={hotel} />;
+  //     }
+  //   });
+  // }
   if (props.hotels !== undefined) {
-    hotels = props.hotels.map((hotel) => {
-      if (hotel) {
-        return <Hotel key={hotel.id} hotel={hotel} />;
-      }
-    });
+    hotels = props.hotels
+      .filter(Boolean)
+      .map((hotel) => <Hotel key={hotel.id} hotel={hotel} />);
   }
   if (hotels.length === 0) {
     return (
