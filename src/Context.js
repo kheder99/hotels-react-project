@@ -56,7 +56,7 @@ class HotelProvider extends React.Component {
     // this.baseURL = "https://stupendous-tranquil-buckthornpepperberry.glitch.me";
     // this.baseURL =
     //   "https://hotel-react-project-backend-production.up.railway.app";
-    this.baseURL = process.env.REACT_APP_BASE_URL;
+    this.baseURL = "https://hotel-react-project-b.vercel.app";
   }
 
   getHotels = () => {
