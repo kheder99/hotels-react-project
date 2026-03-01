@@ -54,9 +54,9 @@ class HotelProvider extends React.Component {
     this.deleteService = this.deleteService.bind(this);
     this.addReservation = this.addReservation.bind(this);
     // this.baseURL = "https://stupendous-tranquil-buckthornpepperberry.glitch.me";
-    this.baseURL =
-      "https://hotel-react-project-backend-production.up.railway.app";
-    // this.baseURL = "http://localhost:3000";
+    // this.baseURL =
+    //   "https://hotel-react-project-backend-production.up.railway.app";
+    this.baseURL = process.env.REACT_APP_BASE_URL;
   }
 
   getHotels = () => {
@@ -65,6 +65,8 @@ class HotelProvider extends React.Component {
       .then(
         (result) => {
           console.log(result);
+          let accessToken = localStorage.getItem("accessToken");
+
           let hotels = this.formatData(result);
           let featuredHotels = hotels.filter((hotel) => hotel.rate === 5);
           this.setState({
@@ -80,7 +82,7 @@ class HotelProvider extends React.Component {
           this.setState({
             error,
           });
-        }
+        },
       );
   };
   getReservations = () => {
@@ -105,7 +107,7 @@ class HotelProvider extends React.Component {
           this.setState({
             error,
           });
-        }
+        },
       );
   };
   componentDidMount() {
@@ -517,7 +519,7 @@ class HotelProvider extends React.Component {
         // [name] : value,
         searchedHotel: value,
       },
-      this.filterHotels
+      this.filterHotels,
     );
   };
   filterHotels = () => {
@@ -574,7 +576,7 @@ class HotelProvider extends React.Component {
       {
         rating: newRating,
       },
-      this.filterHotels
+      this.filterHotels,
     );
   };
   addRatingChanged = (newRating) => {

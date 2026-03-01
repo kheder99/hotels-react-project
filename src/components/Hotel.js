@@ -22,13 +22,14 @@ export default function Hotel(props) {
   return (
     <article className="hotel">
       <div className="img-container">
-        <img
+        <img src={images[0]} alt="Error" />
+        {/* <img
           src={
             "https://hotel-react-project-backend-production.up.railway.app/" +
             images[0]
           }
           alt="Error"
-        />
+        /> */}
 
         <Link to={`/hotels/${id}`} className="btn-primary hotel-link">
           Features

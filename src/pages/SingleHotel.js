@@ -291,14 +291,15 @@ export default function SingleHotel(props) {
           <div className="single-hotel-images">
             {sectionImgs.map((image, index) => {
               return (
-                <img
-                  src={
-                    "https://hotel-react-project-backend-production.up.railway.app" +
-                    image
-                  }
-                  key={index}
-                  alt={name}
-                />
+                // <img
+                //   src={
+                //     "https://hotel-react-project-backend-production.up.railway.app" +
+                //     image
+                //   }
+                //   key={index}
+                //   alt={name}
+                // />
+                <img src={image} key={index} alt={name} />
               );
             })}
           </div>
